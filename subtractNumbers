@@ -1,0 +1,21 @@
+def main():
+    pass
+    print("This program subtracts one number from another.")
+    num1 = input("Enter first number: ")
+    check_validity(num1)
+    num1 = float(num1)
+    num2 = input("Enter second number: ")
+    check_validity(num2)
+    num2 = float(num2)
+    total = num1 - num2
+    print("The result is " + str(total))
+
+def check_validity(input):
+    try:
+        float(input)
+    except:
+        raise ValueError('This cannot be converted to a float')
+        
+
+if __name__ == '__main__':
+    main()
