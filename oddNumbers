@@ -10,18 +10,3 @@ function oddNumbers(num) {
   return sum
 }
 
-crazyCaps
-
-function crazyCaps(string) {
-  let newString = ''
-  for(let i = 0; i< string.length; i++) {
-    let currentLetter = string[i] 
-      if(i%2 === 1) {
-        currentLetter = currentLetter.toUpperCase()
-        newString += currentLetter.toUpperCase()  
-      } else {
-       newString += currentLetter
-      }
-  }
-  return newString
-}
