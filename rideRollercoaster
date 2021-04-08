@@ -1,0 +1,12 @@
+def main():
+    Print("This program will let you know if you can ride the rollercoaster")
+    height = input("Enter your height: ")
+    height = float(height)
+    if height > 2 or height <1
+        print("You can't ride the roller coaster")
+    else
+        print("You can ride the roller coaster")
+    pass
+
+if __name__ == "__main__:
+    main()
