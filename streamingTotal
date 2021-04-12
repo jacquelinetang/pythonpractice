@@ -1,0 +1,115 @@
+
+def subscription_summary(months_subscribed, ad_free_months, video_on_demand_purchases):
+    """
+    Parameters:
+      months_subscribed: How many months each account purchased.
+      ad_free_months: How many months each account paid for ad free viewing.
+      video_on_demand_purchases: How many Videos on Demand each account purchased.
+    """
+    print("Welcome to the Ada+ Account Dashboard\n")
+    
+    userinput = {}
+    list_user_cost = []
+    list_user = []
+    
+    #collect user inputs months subscribed, ad free months, and video on demand purchased for each user
+    
+    for i in range(len(months_subscribed)):
+        Total = 0
+        userinput[i] = {}
+        userinput[i]["susbscriptioncost"] = 0
+        userinput[i]["adfreecost"] = 0
+        userinput[i]["videocost"] = 0
+        userinput[i]["user_total"] = 0
+        userinput[i]["months_subscribed"] = 0
+        
+       #subscription cost 
+     
+        userinput[i]["months_subscribed"] = months_subscribed[i]#input("Enter how many months user subscribed: ")
+        if int(userinput[i]["months_subscribed"]) % 3!=0 and int(userinput[i]["months_subscribed"]) > 3: 
+            standard_price_months = int(userinput[i]["months_subscribed"]) % 3
+            bundle_price_months = int(userinput[i]["months_subscribed"]) - int(standard_price_months)
+            totalsubscriptioncost = int(standard_price_months) * 7 + int(bundle_price_months) * 6
+            userinput[i]["susbscriptioncost"] = totalsubscriptioncost
+        elif int(userinput[i]["months_subscribed"]) % 3 == 0:
+            userinput[i]["susbscriptioncost"] = 6 * int(userinput[i]["months_subscribed"])
+        else:
+            userinput[i]["susbscriptioncost"] = 7 * int(userinput[i]["months_subscribed"])
+        subscriptionformatted = "{:.2f}".format(userinput[i]["susbscriptioncost"])
+
+      #ad free cost
+        userinput[i]["ad_free_months"] = ad_free_months[i]#input("Enter how many months user paid for ad free viewing: ")
+
+        userinput[i]["adfreecost"] = int(userinput[i]["ad_free_months"]) * 2
+        adfreeformatted = "{:.2f}".format(userinput[i]["adfreecost"])
+        
+      #video on demand cost 
+      
+        userinput[i]["video_on_demand_purchases"] = video_on_demand_purchases[i]#input("Enter how many Videos on Demand user purchased: ")
+        userinput[i]["videocost"] = int(userinput[i]["video_on_demand_purchases"]) * 27.99
+        videocostformatted = "{:.2f}".format(userinput[i]["videocost"])
+      
+      #total cost
+        userinput[i]["user_total"] = userinput[i]['susbscriptioncost'] + userinput[i]["adfreecost"] + userinput[i]["videocost"]
+        usertotalformatted = "{:.2f}".format(userinput[i]["user_total"])
+        
+      #list of total costs 
+        list_user.append(i)
+        list_user_cost.append(userinput[i]["user_total"])
+        
+       #dictionary of total cost 
+        dictionary_user_cost = zip(list_user,list_user_cost)
+        dictionary_user_cost = dict(dictionary_user_cost)
+       
+        print(f"Account {i + 1} made ${usertotalformatted} total")
+        print(f">>> ${subscriptionformatted} from monthly subscription fees\n>>> ${adfreeformatted} from Ad-free upgrades\n>>> ${videocostformatted} from Video on Demand purchases\n")
+
+
+    sum = 0
+    
+
+    # iterating key value pair
+
+    ad_free_sum = 0
+    video_sum = 0 
+    for key ,value in userinput.items():
+        if value and 'adfreecost' in value.keys():
+            # Adding value of sharpness to sum
+            ad_free_sum += value['adfreecost'] 
+        if value and 'videocost' in value.keys():
+            video_sum += value['videocost']
+    ad_free_video_sum = ad_free_sum + video_sum 
+    ad_free_video_sum_formatted = "{:.2f}".format(ad_free_video_sum)
+    # printing sum
+    
+
+    for key ,value in userinput.items():
+    
+        if value and 'user_total' in value.keys():
+            # Adding value of sharpness to sum
+            sum += value['user_total'] 
+    sumformatted = "{:.2f}".format(sum)
+    print(f"Combined all accounts made ${sumformatted} total")
+    print(f"Premium content (Ad-free watching and Video on Demand) made ${ad_free_video_sum_formatted} total")
+    
+    profitableuseramount = max(list_user_cost)
+    profitableuseramountformatted = "{:.2f}".format(profitableuseramount)
+    print(f"\n${profitableuseramountformatted} was the most earned by any single account") 
+
+        
+    profitableuser = max(dictionary_user_cost, key=dictionary_user_cost.get)
+    keys_max_values = []
+    for k, v in dictionary_user_cost.items(): 
+        if v == profitableuseramount: 
+            keys_max_values.append(k)
+    #print(keys_max_values)
+    string_max_values = ""
+    for i, key in enumerate(keys_max_values):
+        if i < len(keys_max_values) - 1:                                 
+            string_max_values = string_max_values + f"#{key + 1}"
+            string_max_values += ", "
+        else:
+            string_max_values = string_max_values + f"#{key + 1}"
+
+    
+    print(f"The accounts that earned the most were: {string_max_values}")
